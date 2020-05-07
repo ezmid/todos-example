@@ -1,0 +1,127 @@
+<table class="table table-hover mb-0 text-muted">
+    <thead>
+        <tr>
+            <th class="border-top-0">
+                {{ 'UUID' | trans }}
+            </th>
+            <th class="border-top-0">
+                {{ 'Name' | trans }}
+            </th>
+            <th class="border-top-0">
+                {{ 'Description' | trans }}
+            </th>
+            <th class="border-top-0">
+                {{ 'Status' | trans }}
+            </th>
+            <th class="border-top-0">
+                {{ 'Time created' | trans }}
+                <a
+                    class="badge badge-transparent"
+                    title="{{ 'Sorted by ID ascending' | trans }}"
+                    >
+                    <i class="fa fa-caret-square-down"></i>
+                </a>
+            </th>
+            <th class="border-top-0">
+                {{ 'Time updated' | trans }}
+            </th>
+            <th class="border-top-0 text-right">
+                &nbsp;
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for todo in list.items %}
+        <tr>
+
+            {# UUID #}
+            <td>
+                <a
+                    class="badge badge-primary"
+                    href="{{ path('todo_view', {uuid: todo.uuid}) }}"
+                    title="{{ 'View todo detail' | trans }}"
+                    >
+                    <i class="fa fa-spa"></i>
+                    {{ todo.uuid | slice(0,8) }}
+                </a>
+            </td>
+
+            {# NAME #}
+            <td>
+                <a
+                    href="{{ path('todo_view', {uuid: todo.uuid}) }}"
+                    title="{{ 'View todo detail' | trans }}"
+                    >
+                    {{ todo.name }}
+                </a>
+            </td>
+
+            {# DESCRIPTION #}
+            <td>
+                {{ todo.description | slice(0, 40)}} ...
+            </td>
+
+            {# STATUS BADGE #}
+            <td>
+                <span class="badge badge-pill badge-{{ todo.statusColorClass }}">
+                    <i class="fa {{ todo.statusIconClass }}"></i>
+                    {{ todo.statusLabel }}
+                </span>
+            </td>
+
+            {# CREATED #}
+            <td>
+                {{ todo.timeCreated | date('d.m.Y H:i:s') }}
+            </td>
+
+            {# ACTIVATED #}
+            <td>
+                {% if todo.timeUpdated %}
+                {{ todo.timeUpdated | date('d.m.Y H:i:s') }}
+                {% else %}
+                {{ 'never' | trans }}
+                {% endif %}
+            </td>
+
+            {# ACTIONS #}
+            <td class="text-right">
+                {# DONE BUTTON #}
+                <a
+                    {% if todo.canBeDone %}
+                    class="badge badge-success p-1 text-white"
+                    href="javascript:void(0);"
+                    data-form-action="{{ path('todo_mark_as_done', {uuid: todo.uuid, redirect: path('todo_list')}) }}"
+                    data-target="#modal-decision"
+                    data-toggle="modal"
+                    data-icon="fa fa-check-circle"
+                    data-cls="btn btn-success option"
+                    data-message="{{ 'Mark as done' | trans }}"
+                    {% else %}
+                    class="badge badge-light p-1 text-secondary disabled"
+                    {% endif %}
+                    >
+                    <i class="fa fa-check-circle"></i>
+                </a>
+
+                {# UNDONE BUTTON #}
+                <a
+                    {% if todo.canBeNew %}
+                    class="badge badge-danger p-1 text-white"
+                    href="javascript:void(0);"
+                    data-form-action="{{ path('todo_mark_as_new', {uuid: todo.uuid, redirect: path('todo_list')}) }}"
+                    data-target="#modal-decision"
+                    data-toggle="modal"
+                    data-icon="fa fa-times-circle"
+                    data-cls="btn btn-danger option"
+                    data-message="{{ 'Mark as undone' | trans }}"
+                    {% else %}
+                    class="badge badge-light p-1 text-secondary disabled"
+                    {% endif %}
+                    >
+                    <i class="fa fa-times-circle"></i>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

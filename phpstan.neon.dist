@@ -1,0 +1,8 @@
+parameters:
+    level: 1
+    paths:
+        - %currentWorkingDirectory%/src/
+    excludes_analyse:
+        - %currentWorkingDirectory%/src/Migrations/*
+        - %currentWorkingDirectory%/src/Api/Faker/*
+        - %currentWorkingDirectory%/tests/*

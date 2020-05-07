@@ -1,0 +1,35 @@
+<div class="modal fade" id="modal-decision" tabindex="-1" role="dialog" aria-labelledby="modalDecision"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content text-muted">
+            <form method="post" action="#">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDecision">
+                        <i class="fa fa-balance-scale"></i>
+                        {{ 'Make decision' | trans }}
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label class="question">
+                        {{ 'Are you sure?' | trans }}
+                    </label>
+                </div>
+                <div class="modal-footer text-left">
+                    <button class="option">
+                        <i class="fa fa-info"></i>
+                        <span>info</span>
+                    </button>
+                    <span class="float-right">
+                        <button class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fa fa-times"></i>
+                            {{ 'Close' | trans }}
+                        </button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

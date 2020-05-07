@@ -1,0 +1,57 @@
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> todos ###
+.env
+.phplint.yml
+phpstan.neon
+.idea
+.phpintel
+.vscode
+*.rdb
+oracle.sqlite
+docker-compose.yaml
+phpunit.xml
+supervisord.log
+supervisord.pid
+/bin/.phpunit
+/public/bundles/
+/var/
+/vendor/
+*.yml~
+yarn-error.log
+.composer-cache
+.yarn-cache
+*.txt
+tests/_output
+tests/_build
+.scannerwork
+###< todos ###
+
+###> symfony/webpack-encore-pack ###
+/node_modules/
+/public/build/
+###< symfony/webpack-encore-pack ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+###< phpunit/phpunit ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###

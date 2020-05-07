@@ -1,0 +1,20 @@
+{
+  "scripts": {
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
+    "bootstrap": "^4.4.1",
+    "jquery": "^3.5.1",
+    "node-sass": "^4.14.1",
+    "popper.js": "^1.16.1",
+    "sass-loader": "^7.0.1",
+    "toastr": "^2.1.4"
+  },
+  "dependencies": {
+    "@symfony/webpack-encore": "^0.29.1"
+  }
+}

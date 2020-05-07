@@ -1,0 +1,40 @@
+version: "3"
+services:
+
+    # MySQL - Based on the official image, with some extra configuration
+    mysql:
+     image: mysql:5.7
+     restart: on-failure
+     tmpfs:
+          - /var/lib/mysql
+     environment:
+       MYSQL_ROOT_PASSWORD: root
+       MYSQL_DATABASE: todos
+
+    # Application
+    php:
+        image: ezmid/caddy-s4:latest
+        links:
+            - mysql
+        ports:
+            - "${HOST_HTTP_PORT:-8080}:2015"
+        volumes:
+            # Application code
+            - .:/app:cached
+            # Custom configuration overwrite
+            - ./docker/php/03_custom.ini:/etc/php7/conf.d/03_custom.ini
+            # For faster builds
+            - ${COMPOSER_CACHE_DIR:-../.composer-cache}:/app/.composer-cache
+            - ${YARN_CACHE_FOLDER:-../.yarn-cache}:/app/.yarn-cache
+        environment:
+            COMPOSER_CACHE_DIR: "/app/.composer-cache/"
+            YARN_CACHE_FOLDER: "/app/.yarn-cache/"
+            XDEBUG_CONFIG: "${XDEBUG_CONFIG:-idekey=phpstorm remote_host=10.0.75.1}"
+
+    # Adminer
+    adminer:
+        image: adminer
+        links:
+            - mysql
+        ports:
+            - "${HOST_HTTP_PORT_ADMINER:-8081}:8080"

@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {# BREADCRUMBS #}
+    <div class="row">
+        <div class="col-12">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ path('homepage') }}">{{ 'HOME' | trans }}</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    {{ 'Todos' | trans }}
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        {# LIST #}
+        <div class="row">
+            <div class="col-12">
+                <div class="card text-muted">
+                    <div class="card-header bg-white">
+                        <i class="fa fa-list"></i>
+                        <strong>
+                            {{ 'Todos' | trans}}
+                        </strong>
+                        <div class="float-right">
+                            <span
+                                class="badge badge-pill badge-info text-white"
+                                title="{{ 'Total number of results' | trans }}"
+                                >
+                                <i class="fa fa-signal"></i>
+                                {{ list.count }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                    {% if list.count > 0 %}
+                        {# TABLE #}
+                        {% include 'todos/table.html.twig' %}
+                    {% else %}
+                        {# NO CLIENTS #}
+                        <div class="alert alert-info alert-dismissable m-0">
+                            <h6>
+                                <i class="fa fa-exclamation-triangle"></i>
+                                {{ 'No todos found' | trans }}
+                            </h6>
+                            <hr>
+                            {{ 'No todos matched the search criteria' | trans }}
+                        </div>
+                    {% endif %}
+                    </div>
+                    <div class="card-footer bg-white">
+                        {# ADD BUTTON #}
+                        <a
+                            class="btn btn-success"
+                            href="{{ path('todo_add') }}"
+                            title="{{ 'Add' | trans }}"
+                            >
+                            <i class="fa fa-plus"></i>
+                            {{ 'Add' | trans }}
+                        </a>
+
+                        {# PAGINATION #}
+                        {% if list.numOfPages > 0 %}
+                        <div class="float-right">
+                            {% include 'layout/pagination.html.twig' with {
+                                currentFilters: { filter: list.filter },
+                                currentPage: list.page,
+                                paginationPath: "todo_list",
+                                lastPage: list.numOfPages,
+                                showAlwaysFirstAndLast: true
+                            } only %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+{# MODALS #}
+{% include 'layout/decision.html.twig' %}
+
+{% endblock %}

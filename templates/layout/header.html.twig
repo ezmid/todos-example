@@ -1,0 +1,95 @@
+{# CURRENT PATH for redirects #}
+{%
+    set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params'))
+%}
+<div class="container-fluid">
+    <header class="app-header navbar row">
+        <div class="col-sm-1 d-sm-block d-lg-none">
+            <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="col-lg-4 col-sm-3">
+            <a class="navbar-brand" href="{{ path('homepage') }}">
+                <h1>
+                    <i class="fa fa-spa"></i>
+                    {{ 'TODOS' | trans }}
+                </h1>
+            </a>
+        </div>
+
+        <div class="col-sm-4 col-lg-4">
+            {# SEARCH BAR #}
+            <form action="{{ '' }}" method="post">
+                <div class="input-group row">
+                    <input
+                        class="form-control"
+                        type="text"
+                        name="query"
+                        value="{{ search_for | default }}"
+                        placeholder="{{ 'Search all todos by name not supported now' | trans }}"
+                        >
+                    <div class="input-group-append">
+                        <button class="btn btn-primary">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-sm-4 col-lg-4">
+            <div class="text-right">
+                
+                {# USER MENU #}
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <div class="btn-group">
+                    <a
+                        class="sfloat-right btn btn-transparent text-muted dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false"
+                        >
+                        {% if is_granted('ROLE_SUPER_ADMIN') %}
+                        <i class="fa fa-user-secret"></i>
+                        {% elseif is_granted('ROLE_ADMIN') %}
+                        <i class="fa fa-user-shield"></i>
+                        {% else %}
+                        <i class="fa fa-user"></i>
+                        {% endif %}
+                        {{ system.info.user.username }}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="{{ path('user_view', {id: system.info.user.id }) }}">
+                            <i class="fa fa-user text-secondary"></i>
+                            {{ 'Profile' | trans }}
+                        </a>
+
+                        <a class="dropdown-item" href="{{ path('user_settings') }}">
+                            <i class="fa fa-wrench text-secondary"></i>
+                            {{ 'Settings' }}
+                            <span class="badge badge-info text-white">
+                                {{ 'BETA' | trans }}
+                            </span>
+                        </a>
+
+                        <a class="dropdown-item" href="{{ path('about') }}">
+                            <i class="fa fa-info-circle text-primary"></i>
+                            {{ 'About' | trans }}
+                        </a>
+
+                        <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}">
+                            <i class="fa fa-sign-in-alt text-danger"></i>
+                            {{ 'Sign out' | trans }}
+                        </a>
+                    </div>
+                    {% else %}
+                    <div>
+                        <i class="fa fa-user"></i>
+                        {{ 'Anonymous' | trans }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+</div>

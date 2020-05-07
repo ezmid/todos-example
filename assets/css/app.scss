@@ -1,0 +1,17 @@
+// assets/css/global.scss
+
+// customize some Bootstrap variables
+$primary: darken(#428bca, 20%);
+
+// the ~ allows you to reference things in node_modules
+@import "~bootstrap/scss/bootstrap";
+
+// Font Awesome
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+// Import Toastr
+@import "~toastr/toastr.scss";
+
+footer {
+    margin-top: 2rem;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <base href="{{ app.request.getBaseURL() }}/" />
+    <title>{% block title %}{{ 'TODOS - Example todo application' | trans }}{% endblock %}</title>
+    <link rel="manifest" href="{{ asset('build/manifest.json') }}">
+    {# <link rel="icon" href="{{ asset('build/images/favicon.ico') }}" type="image/x-icon" /> #}
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('build/css/app.css') }}"/>
+</head>
+<body
+    id="page-body"
+    class="app header-fixed sidebar-fixed aside-menu-fixed space-done sidebar-lg-show"
+    >
+
+    <!-- HEADER //-->
+    {% block header %}
+    {% include 'layout/header.html.twig' %}
+    {% endblock %}
+
+    <!-- BODY //-->
+    <div class="app-body">
+        <!-- MAIN //-->
+        <main class="main">
+            <div class="container-fluid">
+            {% block body %}
+                BODY
+            {% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <!-- FOOTER //-->
+    {% block footer %}
+    {% include 'layout/footer.html.twig' %}
+    {% endblock %}
+
+    <!-- SCRIPTS //-->
+    {% block javascripts %}
+    <script type="application/javascript">
+        var baseUrl = "{{ app.request.getBaseURL() }}";
+        var flashMessages = [];
+        {% for label, messages in app.flashes %}
+        {% for message in messages %}
+        flashMessages.push({'level':'{{ label }}', 'message':'{{ message }}'});
+        {% endfor %}
+        {% endfor %}
+    </script>
+    <script type="text/javascript" src="{{ asset('build/runtime.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('build/js/app.js') }}"></script>
+    {% endblock %}
+</body>
+</html>

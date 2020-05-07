@@ -1,0 +1,10 @@
+<label class="form-control-col-label">
+    <strong>
+        {{ label | trans }}
+    </strong>
+</label>
+
+{# CUSTOM WIDGET #}
+{% if element %}
+{{ form_widget(element, { 'attr' : { 'class' : 'form-control' } }) }}
+{% endif %}

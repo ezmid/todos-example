@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('homepage') }}">{{ 'HOME' | trans }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ path('todo_list') }}">{{ 'Todos' | trans }}</a></li>
+                <li class="breadcrumb-item active">{{ 'Add new' | trans }}</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            {# LEFT SIDE #}
+            <div class="col-md-12 col-lg-6">
+                {# DETAIL BOX #}
+                <div class="card text-muted">
+                    {{ form_start(form) }}
+                        <div class="card-header bg-white">
+                            <i class="fa fa-edit"></i>
+                            <strong>
+                                {{ 'Add' | trans }}
+                            </strong>
+                            <div class="float-right">
+                                <span
+                                    class="badge badge-light text-muted"
+                                    title="{{ 'Time created' | trans }}: {{ todo.timeCreated | date }}, {{ 'last updated' | trans }}: {{ todo.timeUpdated | date }}"
+                                    >
+                                    <i class="fa fa-clock"></i>
+                                </span>
+
+                                {# UUID #}
+                                <span
+                                    class="badge badge-light text-muted mr-2"
+                                    title="UUID: {{ todo.uuid }}"
+                                    >
+                                    <i class="fa fa-fingerprint"></i>
+                                </span>
+
+                                <span class="badge badge-pill badge-{{ todo.statusColorClass }}">
+                                    <i class="fa {{ todo.statusIconClass }}"></i>
+                                    {{ todo.statusLabel }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                {# NAME #}
+                                <div class="form-group col-md-6">
+                                    {%
+                                        include 'todos/widget.html.twig'
+                                        with {
+                                            element: form.name,
+                                            label: 'Name'
+                                        } only
+                                    %}
+                                </div>
+                                {# NAME #}
+                                <div class="form-group col-md-12">
+                                    {%
+                                        include 'todos/widget.html.twig'
+                                        with {
+                                            element: form.description,
+                                            label: 'Description'
+                                        } only
+                                    %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-footer bg-white">
+                            {# SAVE BUTTON #}
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                                >
+                                <i class="fa fa-edit"></i>
+                                {{ 'Add' | trans }}
+                            </button>
+
+                            {# PROCESS BUTTONS #}
+                            <div class="float-right">
+                                &nbsp;
+                            </div>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+                {# END OF CARD #}
+            </div>
+
+            {# RIGHT SIDE #}
+            <div class="col-md-12 col-lg-6">
+                {# EMPTY FOR NOW #}
+            </div>
+        </div>
+
+        {# EMPTY PLACEHOLDER #}
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+
+            </div>
+        </div>
+
+    </div>
+
+    {# MODALS #}
+    {% include 'layout/decision.html.twig' %}
+
+{% endblock %}
